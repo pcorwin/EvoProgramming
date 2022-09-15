@@ -10,7 +10,4 @@ amplitudeA = np.pi/4
 frequencyA = 10
 phaseOffsetA = 15
 
-#bLegSensorValues = np.zeros(steps)
-#fLegSensorValues = np.zeros(steps)
-
 targetAngles = (np.linspace(-np.pi / 4, np.pi / 4, steps))

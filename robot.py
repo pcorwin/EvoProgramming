@@ -1,6 +1,5 @@
 import pybullet as p
-
-import constants
+import constants as c
 import pyrosim.pyrosim as pyrosim
 from sensor import SENSOR
 from motor import MOTOR
@@ -24,10 +23,16 @@ class ROBOT:
         first = True
         for jointName in pyrosim.jointNamesToIndices:
             if first:
-                self.motors[jointName] = MOTOR(jointName, constants.amplitudeA, constants.frequencyA, constants.phaseOffsetA)
+                self.motors[jointName] = MOTOR(jointName,
+                                               c.amplitudeA,
+                                               c.frequencyA,
+                                               c.phaseOffsetA)
                 first = False
             else:
-                self.motors[jointName] = MOTOR(jointName, constants.amplitudeB, constants.frequencyB, constants.phaseOffsetB)
+                self.motors[jointName] = MOTOR(jointName,
+                                               c.amplitudeB,
+                                               c.frequencyB,
+                                               c.phaseOffsetB)
     def Act(self, t):
         for m in self.motors.values():
             m.Set_Value(t)

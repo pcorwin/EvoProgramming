@@ -3,8 +3,6 @@ from robot import ROBOT
 from world import WORLD
 import pybullet as p
 import pybullet_data
-import pyrosim.pyrosim as pyrosim
-import numpy as np
 import constants as c
 
 class SIMULATION:
