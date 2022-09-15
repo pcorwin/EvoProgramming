@@ -1,22 +1,28 @@
+import random
+
 import numpy as np
 import constants as c
 import pyrosim.pyrosim as pyrosim
 
 class MOTOR:
-    def __init__(self, jointName):
+    def __init__(self, jointName, a, f, p):
         self.jointName = jointName
-        self.motorValues = np.zeros(c.steps)
-    def Prepare_to_Act(self, t):
-        self.ampltiude = c.amplitude
-        self.phaseOffset = c.phaseOffset
-        self.frequency = c.frequency
-        c.targetAngles[t] = self.ampltiude * \
-                            np.sin(self.frequency * c.targetAngles[t] + self.phaseOffset)
+        self.ampltiude = a
+        self.phaseOffset = f
+        self.frequency = p
+        self.motorValues = (np.zeros(c.steps))
+        self.Prepare_to_Act()
 
+    def Prepare_to_Act(self):
+        self.motorValues = self.ampltiude * np.sin(self.frequency * c.targetAngles + self.phaseOffset)
+
+    def Set_Value(self, t):
         pyrosim.Set_Motor_For_Joint(
-            bodyIndex=1,
-            jointName=self.jointName,
-            controlMode=2,
-            targetPosition=c.targetAngles[t],
-            maxForce=500
+           bodyIndex=2,
+           jointName=self.jointName,
+           controlMode=2,
+           targetPosition=self.motorValues[t],
+           maxForce=500
         )
+    def Save_Values(self):
+        np.save(f"data/motor_{self.jointName}", self.motorValues)

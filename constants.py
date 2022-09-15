@@ -2,13 +2,13 @@ import numpy as np
 
 steps = 1000
 
-# amplitudeB = np.pi/4
-# frequencyB = 10
-# phaseOffsetB = 5
+amplitudeB = np.pi/4
+frequencyB = 10
+phaseOffsetB = 5
 
-amplitude = np.pi/4
-frequency = 10
-phaseOffset = 0
+amplitudeA = np.pi/4
+frequencyA = 10
+phaseOffsetA = 15
 
 #bLegSensorValues = np.zeros(steps)
 #fLegSensorValues = np.zeros(steps)
