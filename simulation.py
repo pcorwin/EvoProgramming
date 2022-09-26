@@ -18,6 +18,7 @@ class SIMULATION:
         for i in range(0, c.steps):  # simulation loop
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
             time.sleep(1 / 60)  # time between each step
             if i % 100 == 0:  # output timestamp for ease of use

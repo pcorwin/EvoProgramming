@@ -14,24 +14,27 @@ def create_world():
     pyrosim.Send_Cube(name="Box1", pos=[x+2,y+2,z], size=[l,w,h])
     pyrosim.End()
 
-def create_robot():
+def Generate_Body():
     pyrosim.Start_URDF("body.urdf")
-
     pyrosim.Send_Cube(name="Torso", pos=[x,y,1.5], size=[l,w,h])
     pyrosim.Send_Joint(name="Torso_FLeg", parent="Torso", child="FLeg", type="revolute", position=[0.5,0,1])
     pyrosim.Send_Cube(name="FLeg", pos=[0.5,y,-0.5], size=[l,w,h])
     pyrosim.Send_Joint(name="Torso_BLeg", parent="Torso", child="BLeg", type="revolute", position=[-0.5,0,1])
     pyrosim.Send_Cube(name="BLeg", pos=[-0.5,y,-0.5], size=[l,w,h])
-
-    #pyrosim.Send_Cube(name="Link0", pos=[x,y,z], size=[l,w,h])
-    #pyrosim.Send_Joint(name="Link0_Link1", parent="Link0", child="Link1", type="revolute", position=[0.5,0,1])
-    #pyrosim.Send_Cube(name="Link1", pos=[0.5,y,z], size=[l,w,h])
-    #pyrosim.Send_Joint(name="Link1_Link2", parent="Link1", child="Link2", type="revolute", position=[1,0,0])
-    #pyrosim.Send_Cube(name="Link2", pos=[0.5,y,-0.5], size=[l,w,h])
     pyrosim.End()
 
+def Generate_Brain():
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
+    pyrosim.Send_Sensor_Neuron(name=1, linkName="BLeg")
+    pyrosim.Send_Sensor_Neuron(name=2, linkName="FLeg")
+    pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BLeg")
+    pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FLeg")
+    pyrosim.End()
+
+Generate_Body()
+Generate_Brain()
 create_world()
-create_robot()
 
 #pyrosim.Start_SDF("world.sdf")
 
